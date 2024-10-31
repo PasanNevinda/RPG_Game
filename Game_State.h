@@ -8,15 +8,19 @@ class Game_State : public State
 private:
 	Entity player;
 
+	void setKeyBinds();
+
+
 public:
 
-	Game_State(sf::RenderWindow* window);
+	Game_State(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* available_keys);
 	virtual ~Game_State();
+
 
 	void render(sf::RenderWindow* target = nullptr);
 	void update(const float& dt);
 	void endState();
-	void updateKeybinds(const float& dt);
+	void updateInputs(const float& dt);
 
 };
 

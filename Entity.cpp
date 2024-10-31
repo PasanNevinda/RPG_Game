@@ -18,14 +18,6 @@ void Entity::render(sf::RenderTarget* target)
 
 void Entity::update(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		move(dt, -1, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		move(dt, 1, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		move(dt, 0, 1);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		move(dt,0,-1);
 	
 }
 

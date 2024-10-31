@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "Game_State.h"
+#include "MainMenuState.h"
 
 class Game
 {
@@ -13,10 +14,11 @@ private:
 	sf::Clock deltaClock;
 	float deltaTime;
 	std::stack<State*> states;
-
+	std::map<std::string, sf::Keyboard::Key> available_keys;
 
 	// initailization
 	void initializeWindow();
+	void initializeKeys();
 	void initialState();
 
 public:

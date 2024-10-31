@@ -23,12 +23,14 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game_State.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="state.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game_State.h" />
+    <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="state.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

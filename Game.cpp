@@ -19,6 +19,7 @@ void Game::initializeWindow()
 		file >> framerate;
 		file >> vertical_synced;
 	}
+	file.close();
 
 	window->create(video_mode, title);
 	window->setFramerateLimit(framerate);
@@ -26,14 +27,30 @@ void Game::initializeWindow()
 
 }
 
+void Game::initializeKeys()
+{
+	std::ifstream file("Config/supportedKeys.ini");
+	if (file)
+	{
+		std::string key_name;
+		int key;
+		while (file >> key_name >> key)
+		{
+			available_keys[key_name] = sf::Keyboard::Key(key);
+		}
+	}
+	file.close();
+}
+
 void Game::initialState()
 {
-	states.push(new Game_State(window));
+	states.push(new MainMenuState(window,&available_keys));
 }
 
 Game::Game()
 {
 	initializeWindow();
+	initializeKeys();
 	initialState();
 }
 

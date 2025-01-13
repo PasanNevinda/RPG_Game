@@ -1,37 +1,56 @@
 #include "MainMenuState.h"
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* available_keys) :State(window, available_keys)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* available_keys, std::stack<State*>* states) :State(window, available_keys,states)
 {
-	newgame.setFillColor(sf::Color::Green);
-	newgame.setSize(sf::Vector2f(300, 100));
-	newgame.setPosition(250, 250);
+
 	setKeyBinds();
+	initFont();
+	initButtons();
+	background.setSize(static_cast<const sf::Vector2f>(window->getSize()));
+	background.setFillColor(sf::Color(255, 255, 255, 100));
+	background.setPosition(0, 0); 
 } 
 
 MainMenuState::~MainMenuState()
 {
+	for (auto& pair : buttons)
+	{
+		delete pair.second;
+	}
 }
 
 void MainMenuState::setKeyBinds()
 {
 	key_binds["QUIT"] = sf::Keyboard::Key::Escape;
-	/*std::ifstream file("Config/game_state_keys.ini");
-	if (file)
+	
+}
+
+void MainMenuState::initFont()
+{
+	if (!font.loadFromFile("Fonts/JungleAdventurer.ttf"))
 	{
-		std::string key_name;
-		int key;
-		while (file >> key_name >> key)
-		{
-			key_binds[key_name] = sf::Keyboard::Key(key);
-		}
+		std::cout << "error in loading fonts\n";
 	}
-	file.close();*/
+}
+
+void MainMenuState::initButtons()
+{
+	Button* newGame =  new Button(sf::RectangleShape(sf::Vector2f(400, 40)), &font, "New Game", sf::Color::Green, sf::Color::Red, sf::Color::Blue);
+	Button* exitGame = new Button(sf::RectangleShape(sf::Vector2f(400, 40)), &font, "Quit", sf::Color::Green, sf::Color::Red, sf::Color::Blue);
+	newGame->setPosition(window->getSize().x*0.5 - newGame->getSize().x*0.5, window->getSize().y*0.3);
+	exitGame->setPosition(window->getSize().x * 0.5 - newGame->getSize().x * 0.5, window->getSize().y * 0.3 + newGame->getSize().y + 20);
+	buttons.emplace("New Game",newGame);
+	buttons.emplace("Quit", exitGame);
 }
 
 void MainMenuState::update(const float& dt)
 {
+	updateMousePositionWindow(window);
 	updateInputs(dt);
+
+	// update buttons and manage states
+		
 
 }
 
@@ -40,7 +59,11 @@ void MainMenuState::render(sf::RenderWindow* target)
 	if (!target)
 		target = this->window;
 
-	target->draw(newgame);
+	target->draw(background);
+	for (auto& pair : buttons)
+	{
+		pair.second->render(target);
+	}
 }
 
 void MainMenuState::endState()
@@ -49,5 +72,15 @@ void MainMenuState::endState()
 
 void MainMenuState::updateInputs(const float& dt)
 {
-	checkQuit();
+	for (auto& pair : buttons)
+	{
+		pair.second->update(mousePositionWindow);
+	}
+	if (buttons.at("New Game")->isPressed())
+		states->push(new Game_State(window, available_keys, states));
+
+	if (buttons.at("Quit")->isPressed())
+		setQuit(true);
+	else
+		setQuit(false);
 }

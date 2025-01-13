@@ -1,11 +1,13 @@
 #ifndef ENTITY_H
 #define	ENTITY_H
 
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <stack>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

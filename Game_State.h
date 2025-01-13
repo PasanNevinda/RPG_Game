@@ -13,7 +13,7 @@ private:
 
 public:
 
-	Game_State(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* available_keys);
+	Game_State(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* available_keys, std::stack<State*>* states);
 	virtual ~Game_State();
 
 

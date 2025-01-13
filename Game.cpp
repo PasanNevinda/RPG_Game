@@ -6,7 +6,7 @@ void Game::initializeWindow()
 {
 	window = new sf::RenderWindow();
 	std::string title = "None";
-	sf::VideoMode video_mode(1200, 800);
+	sf::VideoMode video_mode(1920, 1080);
 	unsigned framerate = 120;
 	bool vertical_synced = false;
 
@@ -21,7 +21,7 @@ void Game::initializeWindow()
 	}
 	file.close();
 
-	window->create(video_mode, title);
+	window->create(sf::VideoMode(1920,1080), title);
 	window->setFramerateLimit(framerate);
 	window->setVerticalSyncEnabled(vertical_synced);
 
@@ -44,7 +44,7 @@ void Game::initializeKeys()
 
 void Game::initialState()
 {
-	states.push(new MainMenuState(window,&available_keys));
+	states.push(new MainMenuState(window,&available_keys,&states));
 }
 
 Game::Game()
@@ -138,4 +138,10 @@ void Game::run()
 
 		render();
 	}
+}
+
+void Game::newState(State* newState = nullptr)
+{
+	if(newState)
+		states.push(newState);
 }

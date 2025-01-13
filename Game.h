@@ -33,6 +33,7 @@ public:
 	void update();
 	void render();
 	void run();
+	void newState(State* newState);
 
 
 };

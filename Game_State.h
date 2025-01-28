@@ -2,14 +2,24 @@
 #define GAME_STATE_H
 
 #include "state.h"
+#include "Player.h"
+
+typedef struct {
+	bool MousePress;
+	bool arrowUp;
+	bool arrowDown;
+	bool arrowLeft;
+	bool arrowRight;
+} USER_INPUTS;
+
 class Game_State : public State
 {
 
 private:
-	Entity player;
-
+	Player* player; // player shoud have sprite, animationComponent, MovementComponent <- pass player sprite to them for update and render
 	void setKeyBinds();
-
+	std::map<std::string, sf::Texture*> textures;
+	USER_INPUTS userInputs;
 
 public:
 
@@ -21,6 +31,7 @@ public:
 	void update(const float& dt);
 	void endState();
 	void updateInputs(const float& dt);
+	void initTextures();
 
 };
 

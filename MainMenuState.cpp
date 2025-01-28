@@ -22,7 +22,7 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::setKeyBinds()
 {
-	key_binds["QUIT"] = sf::Keyboard::Key::Escape;
+	//key_binds["QUIT"] = sf::Keyboard::Key::Escape;
 	
 }
 
@@ -47,10 +47,7 @@ void MainMenuState::initButtons()
 void MainMenuState::update(const float& dt)
 {
 	updateMousePositionWindow(window);
-	updateInputs(dt);
-
-	// update buttons and manage states
-		
+	updateInputs(dt);	
 
 }
 
@@ -70,8 +67,9 @@ void MainMenuState::endState()
 {
 }
 
-void MainMenuState::updateInputs(const float& dt)
+void MainMenuState::updateInputs(const float& dt) // this may not need dt
 {
+	// update buttons and manage states
 	for (auto& pair : buttons)
 	{
 		pair.second->update(mousePositionWindow);

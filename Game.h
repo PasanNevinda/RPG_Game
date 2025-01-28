@@ -16,6 +16,8 @@ private:
 	std::stack<State*> states;
 	std::map<std::string, sf::Keyboard::Key> available_keys;
 
+	std::map<std::string, sf::Texture*> textures;  // to pass textures to game_state and edit state
+
 	// initailization
 	void initializeWindow();
 	void initializeKeys();
@@ -33,7 +35,6 @@ public:
 	void update();
 	void render();
 	void run();
-	void newState(State* newState);
 
 
 };

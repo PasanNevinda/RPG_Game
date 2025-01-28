@@ -140,8 +140,3 @@ void Game::run()
 	}
 }
 
-void Game::newState(State* newState = nullptr)
-{
-	if(newState)
-		states.push(newState);
-}

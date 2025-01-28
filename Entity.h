@@ -18,17 +18,19 @@ class Entity
 private:
 
 protected:
-	sf::RectangleShape shape;
-	float movement_speed;
+	//sf::RectangleShape shape;
+	//float movement_speed;
+	sf::Sprite sprite;
+	sf::Vector2f position;
 
 public:
 
-	Entity();
+	Entity(sf::Vector2f position);
 	virtual ~Entity();
 
-	virtual void render(sf::RenderTarget* target);
+	virtual void render(sf::RenderTarget* target) = 0;
 	virtual void update(const float& dt);
-	virtual void move(const float& dt, int x, int y);
+	virtual void move(const float& dt, int dir_x, int dir_y) = 0;
 };
 
 #endif;

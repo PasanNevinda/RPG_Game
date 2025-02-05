@@ -3,14 +3,7 @@
 
 #include "state.h"
 #include "Player.h"
-
-typedef struct {
-	bool MousePress;
-	bool arrowUp;
-	bool arrowDown;
-	bool arrowLeft;
-	bool arrowRight;
-} USER_INPUTS;
+#include "GameStateData.h"
 
 class Game_State : public State
 {
@@ -20,6 +13,15 @@ private:
 	void setKeyBinds();
 	std::map<std::string, sf::Texture*> textures;
 	USER_INPUTS userInputs;
+	USER_INPUTS priviousInputs;
+
+
+	// Tests
+	sf::Text text;
+	sf::Font font;
+	sf::RectangleShape test1;
+	sf::RectangleShape test2;
+	sf::RectangleShape test3;
 
 public:
 

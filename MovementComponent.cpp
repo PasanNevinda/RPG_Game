@@ -5,7 +5,7 @@ MovementComponent::MovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocit
 	velocity = { 0,0 };
 }
 
-void MovementComponent::updateMovement(sf::Vector2f& position, float dt,float dir_x, float dir_y)
+const sf::Vector2f& MovementComponent::updateMovement(sf::Vector2f& position, float dt,float dir_x, float dir_y)
 {
 	if (dir_x == 1)
 	{
@@ -26,9 +26,12 @@ void MovementComponent::updateMovement(sf::Vector2f& position, float dt,float di
 	else
 		velocity.x = approachVelocity(velocity.x, velocityGoal.x, dt * 1000);
 	//std::cout << "velocity = " << velocity.x << "velocity_goal = " << velocityGoal.x << "\n";
-	position.x = position.x + velocity.x * dt;
+	//position.x = position.x + velocity.x * dt;
 	
-	sprite->setPosition(position);
+	//sprite->setPosition(position);
+
+	sprite->move(velocity * dt);
+	return velocity * dt;
 }
 
 float MovementComponent::approachVelocity(float current, float goal, float update_factor)

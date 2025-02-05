@@ -30,7 +30,7 @@ public:
 
 	virtual void render(sf::RenderTarget* target) = 0;
 	virtual void update(const float& dt);
-	virtual void move(const float& dt, int dir_x, int dir_y) = 0;
+	virtual void move(const float& dt, int dir_x, int dir_y);
 };
 
 #endif;

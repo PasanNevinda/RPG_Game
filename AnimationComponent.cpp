@@ -64,7 +64,8 @@ void AnimationComponent::Animation::run(const float& dt,sf::Sprite* sprite)
 		currentFrame++;
 		if (currentFrame == endFrame + 1)
 			currentFrame = startFrame;
-		std::cout << "current frame = " << currentFrame << "\n";
+		//std::cout << "current frame = " << currentFrame << "\n";
+		std::cout << "position = " << sprite->getPosition().x << "  " << sprite->getPosition().y << "\n";
 	}
 }
 

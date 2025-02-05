@@ -24,7 +24,6 @@ void Game::initializeWindow()
 	window->create(sf::VideoMode(1920,1080), title);
 	window->setFramerateLimit(framerate);
 	window->setVerticalSyncEnabled(vertical_synced);
-
 }
 
 void Game::initializeKeys()

@@ -14,7 +14,7 @@ private:
 
 public:
 	MovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocity);
-	void updateMovement(sf::Vector2f& position, float dt,float dir_x, float dir_y); // set velocity goal and update position
+	const sf::Vector2f& updateMovement(sf::Vector2f& position, float dt,float dir_x, float dir_y); // set velocity goal and update position
 	float approachVelocity(float current, float goal, float update_factor);
 };
 

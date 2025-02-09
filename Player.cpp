@@ -25,22 +25,14 @@ void Player::render(sf::RenderTarget* target)
 	hitbox->render(target);
 }
 
-void Player::update(const float& dt, const USER_INPUTS& userInput, const USER_INPUTS& preInput)
+void Player::update(const float& dt)
 {
-	int pre_dir_x = preInput.arrowRight ? 1 : preInput.arrowLeft ? -1 : 0;
-	int pre_dir_y = preInput.arrowUp ? -1 : 1;
-
-	int dir_x = userInput.arrowRight ? 1 : userInput.arrowLeft ? -1 : 0;
-	int dir_y = userInput.arrowDown ? 1 : userInput.arrowUp ? -1 : 0;
-	/*std::cout << " dir_x in player " << dir_x << "\n";
-	std::cout << " dir_y in player " << dir_y << "\n";*/
-
-	if (userInput.MousePress)
-		this->attack(dt,pre_dir_x,pre_dir_y);
-	else if ( dir_x || dir_y)
-		this->move(dt, dir_x, dir_y);
-	else
-		animations->run("wait_front",dt);
+	// TODO:
+	/*
+		* remove all userInput from here
+		* do it in game state, by attack, move, wait functions
+		* use update for do things like health update after attack etc
+	*/
 }
 
 void Player::move(const float& dt, int dir_x, int dir_y)
@@ -61,14 +53,39 @@ void Player::move(const float& dt, int dir_x, int dir_y)
 		sprite.setScale(-5, 5);
 		animations->run("run_right", dt);
 	}
+	else if (dir_y == 1)
+	{
+		sprite.setOrigin(0, 0);
+		sprite.setScale(5, 5);
+		animations->run("run_down", dt);
+	}
+	else if (dir_y == -1)
+	{
+		sprite.setOrigin(0, 0);
+		sprite.setScale(5, 5);
+		animations->run("run_up", dt);
+	}
 
 }
 
-void Player::attack(const float& dt, int dir_x, int dir_y)
+void Player::attack(const float& dt, const previousDirection& pDir)
 {
+	if (pDir == previousDirection::left || pDir == previousDirection::right)
+		animations->run("attack_right", dt);
+	else if (pDir == previousDirection::front)
+		animations->run("attack_front", dt);
+	else if (pDir == previousDirection::up)
+		animations->run("attack_up", dt);
+}
 
-	// attack animation goes here
-	animations->run("attack_front",dt);
+void Player::wait(const float& dt, const previousDirection& pDir)
+{
+	if (pDir == previousDirection::front)
+		animations->run("wait_front", dt);
+	else if (pDir == previousDirection::left || pDir == previousDirection::right)
+		animations->run("wait_right", dt);
+	else if (pDir == previousDirection::up)
+		animations->run("wait_up", dt);
 }
 
 void Player::setMovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocity)

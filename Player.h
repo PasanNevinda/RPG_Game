@@ -17,16 +17,18 @@ private:
 	HitBoxComponent* hitbox;
 	STATE state;
 
+	void setMovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocity);
+	void setAnimationComponent(sf::Sprite* sprite, sf::Texture* texture);
+	void initAnimations();
+
 public:
 	Player(sf::Vector2f position,sf::Vector2f maxVelocity, sf::Texture* texture);
 	~Player();
 	void render(sf::RenderTarget* target);
-	void update(const float& dt, const USER_INPUTS& userInput, const USER_INPUTS& preInput);
+	void update(const float& dt);
 	void move(const float& dt, int dir_x, int dir_y);
-	void attack(const float& dt, int dir_x, int dir_y);
-	void setMovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocity);
-	void setAnimationComponent(sf::Sprite* sprite, sf::Texture* texture);
-	void initAnimations();
+	void attack(const float& dt,const previousDirection& pDir);
+	void wait(const float& dt, const previousDirection& pDir);
 };
 
 #endif

@@ -21,10 +21,32 @@ const sf::Vector2f& MovementComponent::updateMovement(sf::Vector2f& position, fl
 			velocity.x = -dt;
 	}
 
+	if (dir_y == 1)
+	{
+		velocityGoal.y = maxVelocity.y;
+		if (velocity.y < 0)
+			velocity.y = dt;
+	}
+
+	if (dir_y == -1)
+	{
+		velocityGoal.y = -maxVelocity.y;
+		if (velocity.y > 0)
+			velocity.y = -dt;
+	}
+
 	if (dir_x == 0)
 		velocity.x = 0;
 	else
 		velocity.x = approachVelocity(velocity.x, velocityGoal.x, dt * 1000);
+	if (dir_y == 0)
+		velocity.y = 0;
+	else
+	{
+		velocity.x = approachVelocity(velocity.x, velocityGoal.x, dt * 1000);
+		velocity.y = approachVelocity(velocity.y, velocityGoal.y, dt * 1000);
+	}
+		
 	//std::cout << "velocity = " << velocity.x << "velocity_goal = " << velocityGoal.x << "\n";
 	//position.x = position.x + velocity.x * dt;
 	

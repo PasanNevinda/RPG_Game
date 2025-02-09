@@ -12,8 +12,6 @@ private:
 	Player* player; // player shoud have sprite, animationComponent, MovementComponent <- pass player sprite to them for update and render
 	void setKeyBinds();
 	std::map<std::string, sf::Texture*> textures;
-	USER_INPUTS userInputs;
-	USER_INPUTS priviousInputs;
 
 
 	// Tests

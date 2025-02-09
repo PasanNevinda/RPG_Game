@@ -54,7 +54,7 @@ void AnimationComponent::Animation::initializeAnimation(sf::Sprite* sprite)
 void AnimationComponent::Animation::run(const float& dt,sf::Sprite* sprite)
 {
 	this->animationTime += dt * 1000;
-	std::cout << "animation time = " << animationTime << "\n";
+	//std::cout << "animation time = " << animationTime << "\n";
 	//std::cout << "Delta time = " << dt << "\n";
 	//std::cout << "current frame = " << currentFrame << "\n";
 	if (animationTime >= 100)
@@ -65,7 +65,7 @@ void AnimationComponent::Animation::run(const float& dt,sf::Sprite* sprite)
 		if (currentFrame == endFrame + 1)
 			currentFrame = startFrame;
 		//std::cout << "current frame = " << currentFrame << "\n";
-		std::cout << "position = " << sprite->getPosition().x << "  " << sprite->getPosition().y << "\n";
+		//std::cout << "position = " << sprite->getPosition().x << "  " << sprite->getPosition().y << "\n";
 	}
 }
 

@@ -6,7 +6,6 @@ Game_State::Game_State(sf::RenderWindow* window, std::map<std::string, sf::Keybo
 	setKeyBinds();
 	initTextures();
 	player = new Player(sf::Vector2f(400,400), sf::Vector2f(300,300), textures.at("PLAYER"));
-	this->priviousInputs = { 0,0,0,0,0 };
 
 
 
@@ -57,7 +56,7 @@ void Game_State::setKeyBinds()
 void Game_State::update(const float& dt)
 {
 	updateInputs(dt);
-	player->update(dt,userInputs,priviousInputs); 
+	player->update(dt); 
 	updateMousePositionWindow(window);
 }
 
@@ -86,24 +85,53 @@ void Game_State::endState()
 
 void Game_State::updateInputs(const float& dt)
 {
+	static previousDirection preDir = previousDirection::front;
+	bool nokeyPressed = true;
+
 	//check for quit
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		setQuit(true);
 
-	USER_INPUTS temp = this->userInputs;
 
-	userInputs.MousePress = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		player->attack(dt, preDir);
+	}
 
-	userInputs.arrowLeft = sf::Keyboard::isKeyPressed(key_binds.at("MOVE_LEFT"));
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(key_binds.at("MOVE_LEFT")))
+		{
+			player->move(dt, -1, 0);
+			nokeyPressed = false;
+			preDir = previousDirection::left;
+		}
 
-	userInputs.arrowRight = sf::Keyboard::isKeyPressed(key_binds.at("MOVE_RIGHT"));
+		if (sf::Keyboard::isKeyPressed(key_binds.at("MOVE_RIGHT")))
+		{
+			player->move(dt, 1, 0);
+			nokeyPressed = false;
+			preDir = previousDirection::right;
+		}
 
-	userInputs.arrowDown = sf::Keyboard::isKeyPressed(key_binds.at("MOVE_DOWN"));
+		if (sf::Keyboard::isKeyPressed(key_binds.at("MOVE_DOWN")))
+		{
+			player->move(dt, 0, 1);
+			nokeyPressed = false;
+			preDir = previousDirection::front;
+		}
 
-	userInputs.arrowUp = sf::Keyboard::isKeyPressed(key_binds.at("MOVE_UP"));
+		if (sf::Keyboard::isKeyPressed(key_binds.at("MOVE_UP")))
+		{
+			player->move(dt, 0, -1);
+			nokeyPressed = false;
+			preDir = previousDirection::up;
+		}
 
-	if (userInputs.MousePress || userInputs.arrowLeft || userInputs.arrowRight || userInputs.arrowDown || userInputs.arrowUp)
-		this->priviousInputs = temp;
+		if (nokeyPressed)
+			player->wait(dt, preDir);
+	}
+
 }
 
 void Game_State::initTextures()

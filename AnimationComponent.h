@@ -13,7 +13,7 @@ private:
 	sf::Texture* texture;
 	class Animation;
 	std::map<std::string, Animation*> animations;
-	
+	std::string currentAnimation;
 
 public:
 	AnimationComponent(sf::Sprite* sprite, sf::Texture* texture);

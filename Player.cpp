@@ -5,8 +5,7 @@ Player::Player(sf::Vector2f position, sf::Vector2f maxVelocity, sf::Texture* tex
 	this->setMovementComponent(&this->sprite, maxVelocity);
 	this->setAnimationComponent(&this->sprite, texture);
 	initAnimations();
-	animations->initializeAnimation("run_right", &this->sprite);
-	state = IDLE;
+	animations->initializeAnimation("wait_front", &this->sprite);
 	this->hitbox = new HitBoxComponent(&this->sprite,94,109,sf::Color::Red,59,105);
 	this->sprite.setScale(5,5);
 
@@ -100,15 +99,15 @@ void Player::setAnimationComponent(sf::Sprite* sprite, sf::Texture* texture)
 
 void Player::initAnimations()
 {
-	animations->createAnimation("wait_front", 0, 5, 0, 48, 48, 10, 1);
-	animations->createAnimation("wait_right", 0, 5, 1, 48, 48, 10, 1);
-	animations->createAnimation("wait_up", 0, 5, 2, 48, 48, 10, 1);
-	animations->createAnimation("run_down", 0, 5, 3, 48, 48, 10, 1);
-	animations->createAnimation("run_right", 0, 5, 4, 48, 48, 10, 1);
-	animations->createAnimation("run_up", 0, 5, 5, 48, 48, 10, 1);
+	animations->createAnimation("wait_front", 0, 5, 0, 48, 48, 10, 0);
+	animations->createAnimation("wait_right", 0, 5, 1, 48, 48, 10, 0);
+	animations->createAnimation("wait_up", 0, 5, 2, 48, 48, 10, 0);
+	animations->createAnimation("run_down", 0, 5, 3, 48, 48, 10, 0);
+	animations->createAnimation("run_right", 0, 5, 4, 48, 48, 10, 0);
+	animations->createAnimation("run_up", 0, 5, 5, 48, 48, 10, 0);
 	animations->createAnimation("attack_front", 0, 3, 6, 48, 48, 10, 1);
 	animations->createAnimation("attack_right", 0, 3, 7, 48, 48, 10, 1);
 	animations->createAnimation("attack_up", 0, 3, 8, 48, 48, 10, 1);
-	animations->createAnimation("die", 0, 2, 9, 48, 48, 10, 1);
+	animations->createAnimation("die", 0, 2, 9, 48, 48, 10, 2);
 }
 

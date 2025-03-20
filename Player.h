@@ -7,7 +7,6 @@
 #include "HitBoxComponent.h"
 #include "GameStateData.h"
 
-enum STATE { IDLE = 0, WALKING_LEFT, WALKING_RIGHT, RUNNIG_LEFT, RUNNING_RIGHT, JUMPING, ATTACK, HURT, DEAD };
 
 class Player : public Entity
 {
@@ -15,7 +14,6 @@ private:
 	MovementComponent* movement;
 	AnimationComponent* animations;
 	HitBoxComponent* hitbox;
-	STATE state;
 
 	void setMovementComponent(sf::Sprite* sprite, sf::Vector2f maxVelocity);
 	void setAnimationComponent(sf::Sprite* sprite, sf::Texture* texture);

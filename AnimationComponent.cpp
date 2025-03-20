@@ -17,8 +17,21 @@ void AnimationComponent::createAnimation(const std::string& name, int startFrame
 }
 
 void AnimationComponent::run(const std::string& name, const float& dt)
-{
-	animations.at(name)->run(dt, this->sprite);
+{	
+
+	if(currentAnimation != name)
+	{
+		if (this->animations.at(currentAnimation)->getPrority() > this->animations.at(name)->getPrority()
+			&& !this->animations.at(currentAnimation)->isFinished())
+			currentAnimation = currentAnimation;
+		else
+		{
+			reset(name);
+			this->currentAnimation = name;
+		}
+	}
+
+	animations.at(currentAnimation)->run(dt, this->sprite);
 }
 
 void AnimationComponent::reset(const std::string& name)
@@ -29,7 +42,10 @@ void AnimationComponent::reset(const std::string& name)
 void AnimationComponent::initializeAnimation(std::string name, sf::Sprite* sprite)
 {
 	animations.at(name)->initializeAnimation(sprite);
+	this->currentAnimation = name;
 }
+
+
 
 
 // Animation Class

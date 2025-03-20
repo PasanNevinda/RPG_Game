@@ -4,6 +4,8 @@
 #include "state.h"
 #include "Player.h"
 #include "GameStateData.h"
+#include "Button.h"
+#include "PauseMenu.h"
 
 class Game_State : public State
 {
@@ -12,7 +14,8 @@ private:
 	Player* player; // player shoud have sprite, animationComponent, MovementComponent <- pass player sprite to them for update and render
 	void setKeyBinds();
 	std::map<std::string, sf::Texture*> textures;
-
+	PauseMenu* pausemenu;
+	bool pause;
 
 	// Tests
 	sf::Text text;
@@ -31,8 +34,10 @@ public:
 	void update(const float& dt);
 	void endState();
 	void updateInputs(const float& dt);
+	void updatePlayerInputs(const float& dt);
 	void initTextures();
-
+	void initPauseMenu();
+	void updatePause(float dt);
 };
 
 #endif
